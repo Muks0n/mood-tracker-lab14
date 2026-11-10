@@ -1,5 +1,5 @@
-const express = require("express");
 
+const express = require("express");
 const path = require("path");
 
 // Практична №14, варіант №3.
@@ -49,47 +49,49 @@ const moodEntries = [
     }
 ];
 
+// Створення Express-застосунку.
 const app = express();
 
-// Роздача статичних файлів попереднього застосунку.
+// Крок 7. Роздача статичних файлів застосунку.
 app.use(express.static(path.join(__dirname, "..")));
 
 // Отримання всіх або останніх N записів настрою.
 app.get("/api/mood-entries", (req, res) => {
     const limit = req.query.limit;
 
-    if (limit !== undefined) 
-    {
-        const count = Number(limit);
-
-        if (
-            typeof limit !== "string" ||
-            !/^\d+$/.test(limit) ||
-            !Number.isSafeInteger(count) ||
-            count < 1
-        ) 
-        {
-            return res.status(400).json({
-                error: "Параметр limit має бути додатним цілим числом"
-            });
-        }
-
-        return res.status(200).json(
-            moodEntries.slice(-count)
-        );
+    // Якщо параметр відсутній, повертаємо всі записи.
+    if (limit === undefined) {
+        return res.status(200).json(moodEntries);
     }
 
-    res.status(200).json(moodEntries);
+    const count = Number(limit);
+
+    // Перевірка коректності параметра limit.
+    if (
+        typeof limit !== "string" ||
+        !/^\d+$/.test(limit) ||
+        !Number.isSafeInteger(count) ||
+        count < 1
+    ) {
+        return res.status(400).json({
+            error: "Параметр limit має бути додатним цілим числом"
+        });
+    }
+
+    // Повертаємо останні N записів.
+    return res.status(200).json(
+        moodEntries.slice(-count)
+    );
 });
 
-// Обробка невідомих маршрутів.
+// Обробка запитів до неіснуючих ресурсів.
 app.use((req, res) => {
     res.status(404).json({
         error: "Ресурс не знайдено"
     });
 });
 
- // Запуск локального сервера.
+// Запуск локального сервера.
 const PORT = 3000;
 
 app.listen(PORT, () => {
