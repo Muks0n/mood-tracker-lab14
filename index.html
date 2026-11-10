@@ -127,7 +127,7 @@
             </div>
 
             <section id="api-records">
-                <h2>Записи настрою з API</h2>
+                <h2>Записи настрою з локального API</h2>
                 <button type="button" id="refresh-button"
                         @click="$emit('load-data')" :disabled="isLoading">
                     Оновити
@@ -140,10 +140,10 @@
                 </p>
                 <div class="cards" id="api-history">
                     <article class="mood-card api-card"
-                             v-for="record in apiRecords" :key="record.id">
-                        <h3>{{ record.name }}</h3>
-                        <p>{{ record.body }}</p>
-                        <p>Email: {{ record.email }}</p>
+                            v-for="record in apiRecords" :key="record.id">
+                        <h3>Дата: {{ record.date }}</h3>
+                        <p>Настрій: {{ record.mood }} / 5</p>
+                        <p>Примітка: {{ record.note }}</p>
                     </article>
                 </div>
             </section>
