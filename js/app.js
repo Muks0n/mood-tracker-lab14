@@ -1,8 +1,8 @@
 
 const STORAGE_MODE = "indexed";
 
-const API_URL =
-    "https://jsonplaceholder.typicode.com/comments?postId=1";
+// Практична №14: локальний API на Node.js.
+const API_URL = "/api/mood-entries";
 
 // Практична №12: анімований графік останніх 7 записів.
 const CHART_RECORD_COUNT = 7;
@@ -147,6 +147,7 @@ function drawMoodChart(records)
     chartAnimationId = requestAnimationFrame(animate);
 }
 
+currentViewComponent
 
 // Практична №13, крок 5:
 // View-функції вибирають представлення.
@@ -178,7 +179,7 @@ function renderDetail(vm, params)
 }
 
 
-// Крок 3: таблиця маршрутів.
+// таблиця маршрутів.
 const routes = [
     { path: "/", view: renderHome },
     { path: "/history", view: renderHistory },
@@ -187,7 +188,7 @@ const routes = [
 ];
 
 
-// Крок 4: пошук маршруту та отримання параметрів.
+// пошук маршруту та отримання параметрів.
 function matchRoute(path)
 {
     const pathParts = path.split("/").filter(Boolean);
@@ -227,7 +228,7 @@ function matchRoute(path)
 }
 
 
-// Крок 6: клієнтська навігація.
+// клієнтська навігація.
 function navigate(path)
 {
     if (location.hash.slice(1) === path)
@@ -337,7 +338,7 @@ const MoodEntry = {
 };
 
 
-// Крок 5: повторне використання HTML-шаблонів.
+// повторне використання HTML-шаблонів.
 // Спільні дані передаються через props,
 // а дії користувача — через події.
 
@@ -477,7 +478,7 @@ const app = Vue.createApp({
     },
 
     computed: {
-        // Крок 5: активний компонент визначає
+        // активний компонент визначає
         // вміст спільного контейнера router-view.
         currentViewComponent()
         {
@@ -533,7 +534,7 @@ const app = Vue.createApp({
     },
 
     methods: {
-        // Кроки 4–9: вибір представлення.
+        // вибір представлення.
         renderRoute()
         {
             const path = location.hash.slice(1) || "/";
@@ -848,7 +849,7 @@ const app = Vue.createApp({
 
     mounted()
     {
-        // Крок 7: обробка hashchange.
+        // обробка hashchange.
         this.routeHandler = () => {
             this.renderRoute();
         };
@@ -858,7 +859,7 @@ const app = Vue.createApp({
             this.routeHandler
         );
 
-        // Крок 6: перехоплення внутрішніх посилань.
+        // перехоплення внутрішніх посилань.
         this.linkHandler = (event) => {
             const target = event.target;
 
