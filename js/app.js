@@ -147,7 +147,6 @@ function drawMoodChart(records)
     chartAnimationId = requestAnimationFrame(animate);
 }
 
-currentViewComponent
 
 // Практична №13, крок 5:
 // View-функції вибирають представлення.
